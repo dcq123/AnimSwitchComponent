@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Toast;
 
 import com.github.qing.animswitchcomponent.model.CardModel;
@@ -57,33 +58,38 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         animTextView = (AnimSwitchTextView) findViewById(R.id.animTextView);
-
         itemAnimImage1 = (SimpleSwitchImageView) findViewById(R.id.itemAnimImage1);
         itemAnimImage2 = (SimpleSwitchImageView) findViewById(R.id.itemAnimImage2);
         itemAnimImage3 = (SimpleSwitchImageView) findViewById(R.id.itemAnimImage3);
         itemAnimText1 = (AnimSwitchTextView) findViewById(R.id.itemAnimText1);
         itemAnimText2 = (AnimSwitchTextView) findViewById(R.id.itemAnimText2);
         itemAnimText3 = (AnimSwitchTextView) findViewById(R.id.itemAnimText3);
-
         cardAnimView = (SimpleCardAnimView) findViewById(R.id.cardAnimView);
 
         itemAnimImage2.setDelayed(150);
         itemAnimImage3.setDelayed(300);
+        cardAnimView.setDuration(500).setInterpolator(new AccelerateDecelerateInterpolator());
 
+        // 自动切换
         animTextView
+                // 自动变换的时间间隔
                 .setAutoChangeDelay(3000)
+                // 是否自动变换
                 .isAutoChange(true)
+                // 动画效果
                 .setSwitchAnimator(new FadeInFadeOutAnimator())
+                // 循环切换的数据集合
                 .setData(textData)
+                // 触发自动切换
                 .showNext();
 
+        // 设置点击监听
         animTextView.setItemClickListener(new BaseAnimSwitchView.OnItemClickListener<String>() {
             @Override
             public void onItemClick(String data, View view) {
                 Toast.makeText(MainActivity.this, "点击了当前item:" + data, Toast.LENGTH_SHORT).show();
             }
         });
-
         itemAnimImage1.setItemClickListener(new BaseAnimSwitchView.OnItemClickListener<Integer>() {
             @Override
             public void onItemClick(Integer data, View view) {
@@ -137,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
     public void switchText(View view) {
 
 
+        // 切换数据
         itemAnimImage1.changeData(imgRes[random.nextInt(imgRes.length - 1)]);
         itemAnimImage2.changeData(imgRes[random.nextInt(imgRes.length - 1)]);
         itemAnimImage3.changeData(imgRes[random.nextInt(imgRes.length - 1)]);

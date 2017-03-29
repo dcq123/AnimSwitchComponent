@@ -3,7 +3,6 @@ package com.github.qing.animswitchlib.anim;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.graphics.Rect;
-import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.animation.Interpolator;
 
@@ -55,14 +54,5 @@ public abstract class BaseAnimator {
     public BaseAnimator setListener(Animator.AnimatorListener listener) {
         this.listener = listener;
         return this;
-    }
-
-    public void reset(View view) {
-        ViewCompat.setAlpha(view, 1);
-        ViewCompat.setTranslationX(view, 0);
-        ViewCompat.setTranslationY(view, 0);
-        ViewCompat.setRotation(view, 0);
-        ViewCompat.setRotationX(view, 0);
-        ViewCompat.setRotationY(view, 0);
     }
 }

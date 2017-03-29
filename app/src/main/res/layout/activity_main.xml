@@ -1,109 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
-    android:orientation="vertical"
-    tools:context="com.github.qing.animswitchcomponent.MainActivity">
-
-
-    <com.github.qing.animswitchlib.widget.AnimSwitchTextView
-        android:id="@+id/animTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@color/colorPrimary"
-        app:textColor="#fff"
-        app:textPadding="16dp"
-        app:textSize="16sp" />
-
+    android:background="#fff">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        tools:context="com.github.qing.animswitchcomponent.MainActivity">
+
+        <TextView
+            style="@style/title_style"
+            android:text="自动进行文本切换" />
 
         <com.github.qing.animswitchlib.widget.AnimSwitchTextView
-            android:id="@+id/itemAnimText1"
-            android:layout_width="0dp"
+            android:id="@+id/animTextView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            app:textColor="#fff" />
+            android:layout_margin="10dp"
+            android:background="@drawable/item_shape"
+            app:textColor="#fff"
+            app:textPadding="16dp"
+            app:textSize="16sp" />
 
-        <com.github.qing.animswitchlib.widget.AnimSwitchTextView
-            android:id="@+id/itemAnimText2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            app:textColor="#fff" />
 
-        <com.github.qing.animswitchlib.widget.AnimSwitchTextView
-            android:id="@+id/itemAnimText3"
-            android:layout_width="0dp"
+        <TextView
+            style="@style/title_style"
+            android:text="图片和文本手动触发切换" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            app:textColor="#fff" />
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <com.github.qing.animswitchlib.widget.AnimSwitchTextView
+                android:id="@+id/itemAnimText1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                app:textColor="#fff" />
+
+            <com.github.qing.animswitchlib.widget.AnimSwitchTextView
+                android:id="@+id/itemAnimText2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                app:textColor="#fff" />
+
+            <com.github.qing.animswitchlib.widget.AnimSwitchTextView
+                android:id="@+id/itemAnimText3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                app:textColor="#fff" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/item_shape"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <com.github.qing.animswitchcomponent.widget.SimpleSwitchImageView
+                android:id="@+id/itemAnimImage1"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="#eee" />
+
+
+            <com.github.qing.animswitchcomponent.widget.SimpleSwitchImageView
+                android:id="@+id/itemAnimImage2"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="#eee" />
+
+
+            <com.github.qing.animswitchcomponent.widget.SimpleSwitchImageView
+                android:id="@+id/itemAnimImage3"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="#eee" />
+
+        </LinearLayout>
+
+
+        <TextView
+            style="@style/title_style"
+            android:text="自定义布局触发切换" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="@drawable/item_shape">
+
+            <com.github.qing.animswitchcomponent.widget.SimpleCardAnimView
+                android:id="@+id/cardAnimView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:onClick="switchText"
+            android:text="切换数据" />
 
     </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@color/colorPrimary"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <com.github.qing.animswitchcomponent.widget.SimpleSwitchImageView
-            android:id="@+id/itemAnimImage1"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:background="#eee" />
-
-
-        <com.github.qing.animswitchcomponent.widget.SimpleSwitchImageView
-            android:id="@+id/itemAnimImage2"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:background="#eee" />
-
-
-        <com.github.qing.animswitchcomponent.widget.SimpleSwitchImageView
-            android:id="@+id/itemAnimImage3"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:background="#eee" />
-
-    </LinearLayout>
-
-    <com.github.qing.animswitchcomponent.widget.SimpleCardAnimView
-        android:id="@+id/cardAnimView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:onClick="switchText"
-        android:text="切换数据" />
-
-</LinearLayout>
+</ScrollView>

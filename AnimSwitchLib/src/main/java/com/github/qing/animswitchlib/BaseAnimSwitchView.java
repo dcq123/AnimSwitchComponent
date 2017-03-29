@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 
 import com.github.qing.animswitchlib.anim.BaseAnimator;
@@ -24,17 +25,18 @@ import java.util.List;
  */
 
 @SuppressWarnings("unchecked")
-public abstract class BaseAnimSwitchView<E, T extends View, S extends BaseAnimSwitchView> extends FrameLayout {
+public abstract class BaseAnimSwitchView<MODEL, V extends View, CHILD extends BaseAnimSwitchView> extends FrameLayout {
     private static final int DEFAULT_SIZE = 2;
     private static final int DEFAULT_DURATION = 500;
-    private List<T> container = new ArrayList<>();
-    private T currentView, nextView;
+    private List<V> container = new ArrayList<>();
+    private V currentView, nextView;
     private int duration = DEFAULT_DURATION;
     protected int delayed;
     private boolean isAnimating = false;
     protected BaseAnimator switchAnimator;
-    protected E currentData;
+    protected MODEL currentData;
     private OnItemClickListener itemClickListener;
+    private Interpolator interpolator;
 
     public BaseAnimSwitchView(@NonNull Context context) {
         this(context, null);
@@ -55,7 +57,7 @@ public abstract class BaseAnimSwitchView<E, T extends View, S extends BaseAnimSw
 
     private void init() {
         for (int i = 0; i < DEFAULT_SIZE; i++) {
-            T itemView = createNewItemView();
+            V itemView = createNewItemView();
             itemView.setVisibility(INVISIBLE);
             container.add(itemView);
             addView(itemView, itemView.getLayoutParams());
@@ -75,8 +77,8 @@ public abstract class BaseAnimSwitchView<E, T extends View, S extends BaseAnimSw
     }
 
 
-    protected T findCurrent() {
-        for (T tv : container) {
+    protected V findCurrent() {
+        for (V tv : container) {
             if (tv.getVisibility() == VISIBLE) {
                 return tv;
             }
@@ -84,8 +86,8 @@ public abstract class BaseAnimSwitchView<E, T extends View, S extends BaseAnimSw
         return null;
     }
 
-    protected T findNext() {
-        for (T tv : container) {
+    protected V findNext() {
+        for (V tv : container) {
             if (tv.getVisibility() == INVISIBLE) {
                 return tv;
             }
@@ -93,31 +95,38 @@ public abstract class BaseAnimSwitchView<E, T extends View, S extends BaseAnimSw
         return null;
     }
 
-    public S setDuration(int duration) {
+    public CHILD setDuration(int duration) {
         this.duration = duration;
-        return (S) this;
+        return (CHILD) this;
     }
 
-    public S setDelayed(int delayed) {
+    public CHILD setDelayed(int delayed) {
         this.delayed = delayed;
-        return (S) this;
+        return (CHILD) this;
     }
 
-    public S changeData(E data) {
-        T next = findNext();
+    public CHILD changeData(MODEL data) {
+        V next = findNext();
         if (next != null) {
             currentData = data;
             bindItemView(data, next);
             animSwitch();
         }
-        return (S) this;
+        return (CHILD) this;
     }
 
-    protected abstract T createNewItemView();
+    public CHILD setInterpolator(Interpolator interpolator) {
+        this.interpolator = interpolator;
+        return (CHILD) this;
+    }
 
-    protected abstract void bindItemView(E data, T view);
+    // 定义要扩展的View类型
+    protected abstract V createNewItemView();
 
-    public S setSwitchAnimator(BaseAnimator animator) {
+    // 绑定View数据
+    protected abstract void bindItemView(MODEL data, V view);
+
+    public CHILD setSwitchAnimator(BaseAnimator animator) {
         this.switchAnimator = animator;
         this.switchAnimator.setListener(new AnimatorListenerAdapter() {
             @Override
@@ -131,7 +140,7 @@ public abstract class BaseAnimSwitchView<E, T extends View, S extends BaseAnimSw
                 nextView.setVisibility(VISIBLE);
             }
         });
-        return (S) this;
+        return (CHILD) this;
     }
 
     private void animSwitch() {
@@ -147,15 +156,15 @@ public abstract class BaseAnimSwitchView<E, T extends View, S extends BaseAnimSw
 
         // start anim
         Rect rect = new Rect(getLeft(), getTop(), getRight(), getBottom());
-        System.out.println("rect width:" + rect.width() + "\t height:" + rect.height());
         switchAnimator
                 .setDelay(delayed)
                 .setDuration(duration)
+                .setInterpolator(interpolator)
                 .playOn(currentView, nextView, rect);
     }
 
-    public interface OnItemClickListener<E> {
-        void onItemClick(E data, View view);
+    public interface OnItemClickListener<MODEL> {
+        void onItemClick(MODEL data, View view);
     }
 
     public void setItemClickListener(OnItemClickListener itemClickListener) {
