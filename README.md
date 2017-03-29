@@ -19,7 +19,7 @@ allprojects {
 
 // add to app build.gradle
 dependencies {
-    compile 'com.github.dcq123:StepView:v0.0.2'
+    compile 'com.github.dcq123:AnimSwitchComponent:0.0.1'
 }
 ```
 
@@ -58,11 +58,11 @@ animTextView
         .showNext();
 ```
 
-最终的效果就如效果图最顶部的魂环淡入淡出的效果。
+最终的效果就如效果图最顶部的循环淡入淡出的效果。
 
 ##### 扩展BaseAnimSwitchView
 
-该抽象类本质是个`FrameLayout`，定义了3中泛型，`MODEL`、`V`、`CHILD`，声明如下：
+该抽象类本质是个`FrameLayout`，定义了3种泛型，`MODEL`、`V`、`CHILD`，声明如下：
 
 ```java
 abstract class BaseAnimSwitchView<MODEL, V extends View, CHILD 
@@ -85,13 +85,13 @@ protected abstract void bindItemView(MODEL data, V view);
 
 暴露的API方法：
 
-| 名称                                       | 描述       |
-| ---------------------------------------- | -------- |
-| setDuration(int duration)                | 设置动画持续时间 |
-| setDelayed(int delayed)                  | 设置动画延迟时间 |
-| setInterpolator(Interpolator interpolator) | 设置动画插值器  |
-| setSwitchAnimator(BaseAnimator animator) | 切换动画实现类  |
-| changeData(MODEL data)                   | 触发内容切换   |
+| 名称                                       | 描述         |
+| ---------------------------------------- | ---------- |
+| setDuration(int duration)                | 设置动画持续时间   |
+| setDelayed(int delayed)                  | 设置动画延迟时间   |
+| setInterpolator(Interpolator interpolator) | 设置动画插值器    |
+| setSwitchAnimator(BaseAnimator animator) | 切换动画实现类    |
+| changeData(MODEL data)                   | **触发内容切换** |
 
 以上API都支持链式调用。
 
