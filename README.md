@@ -4,7 +4,7 @@
 
 #### 效果图
 
-<img width="300" width=“500” src="screen/3月-29-2017 11-13-10.gif"/>
+<img width="300" width=“500” src="screen/3月-29-2017 14-09-43.gif"/>
 
 #### 添加依赖
 
